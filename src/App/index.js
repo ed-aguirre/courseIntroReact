@@ -10,35 +10,61 @@ import { AppUI } from './AppUI';
 ]; */
 
 function useLocalStorage(itemName, initialValue){
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItem;
+  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [item, setItem] = React.useState(initialValue);
 
-  if(!localStorageItem){
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem = initialValue;
-  }else{
-    parsedItem = JSON.parse(localStorageItem);
-  }
+  React.useEffect(() => {
+    setTimeout(() => {
+      try {
+        const localStorageItem = localStorage.getItem(itemName);
+        let parsedItem;
+        
+        if(!localStorageItem){
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItem = initialValue;
+        }else{
+          parsedItem = JSON.parse(localStorageItem);
+        }
+        setItem(parsedItem);
+        setLoading(false);
 
-  const [item, setItem] = React.useState(parsedItem);
+      } catch (error) {
+        setError(error);
+
+      }
+
+    }, 1000);
+  });
+
+  //const [item, setItem] = React.useState(parsedItem);
 
   const saveItem = (newItem) => {
-    const stringifyItem = JSON.stringify(newItem);
-    localStorage.setItem(itemName, stringifyItem);
-    setItem(newItem);
+    try {
+      const stringifyItem = JSON.stringify(newItem);
+      localStorage.setItem(itemName, stringifyItem);
+      setItem(newItem);
+    } catch (error) {
+      setError(error);
+    }
   }
 
-  return[
+  return{ //cuando son mas de 3 parametros, es mejor enviar un objeto{}
     item,
-    saveItem
-  ]; //return al final del hook, xq sino el hook no sirve pa nada dah
+    saveItem,
+    loading,
+    error
+  }; //return al final del hook, xq sino el hook no sirve pa nada dah
 
 }
 
 function App() {
-  const [todos, saveTodos] = useLocalStorage('PAN_V2', []);
-  const [patito, savePatito] = useLocalStorage('Patito', 'Eduardo'); 
-
+  const {
+    item: todos,
+    saveItem: saveTodos,
+    loading,
+    error
+  } = useLocalStorage('PAN_V2', []);
 
   const [searchValue, setSearchValue] = React.useState('');
 
@@ -73,9 +99,10 @@ function App() {
     saveTodos(newTodos);
   };
   
-  return[
-    <p>{patito}</p>,
+  return(
     <AppUI 
+      loading={loading}
+      error={error}
       total={totalTodos}
       completed={completedTodos}
       searchValue={searchValue}
@@ -84,7 +111,7 @@ function App() {
       completeTodo={completeTodo}
       deleteTodo={deleteTodo}
     />
-  ];
+  );
 }
 
 export default App;
