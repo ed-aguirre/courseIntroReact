@@ -9,19 +9,37 @@ import { AppUI } from './AppUI';
   { text: 'Servir', completed: false },
 ]; */
 
-function App() {
-  const localStorageTodos = localStorage.getItem('TODOS_V1', JSON.stringify([]));
-  let parsedTodos;
+function useLocalStorage(itemName, initialValue){
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
 
-  if(!localStorageTodos){
-    localStorageTodos = localStorage.setItem('TODOS_V1');
-    parsedTodos = [];
+  if(!localStorageItem){
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
   }else{
-    parsedTodos = JSON.parse(localStorageTodos);
+    parsedItem = JSON.parse(localStorageItem);
   }
 
+  const [item, setItem] = React.useState(parsedItem);
 
-  const [todos, setTodos] = React.useState(parsedTodos);
+  const saveItem = (newItem) => {
+    const stringifyItem = JSON.stringify(newItem);
+    localStorage.setItem(itemName, stringifyItem);
+    setItem(newItem);
+  }
+
+  return[
+    item,
+    saveItem
+  ]; //return al final del hook, xq sino el hook no sirve pa nada dah
+
+}
+
+function App() {
+  const [todos, saveTodos] = useLocalStorage('PAN_V2', []);
+  const [patito, savePatito] = useLocalStorage('Patito', 'Eduardo'); 
+
+
   const [searchValue, setSearchValue] = React.useState('');
 
   const completedTodos = todos.filter(todo => !!todo.completed).length;
@@ -39,11 +57,7 @@ function App() {
     });
   }
 
-  const saveTodos = (newTodos) => {
-    const savedTodos = JSON.stringify(newTodos);
-    localStorage.setItem('TODOS_V1', savedTodos);
-    setTodos(newTodos);
-  }
+ 
 
   const completeTodo = (text) => {
     const todoIndex = todos.findIndex(todo => todo.text === text);
@@ -59,7 +73,8 @@ function App() {
     saveTodos(newTodos);
   };
   
-  return (
+  return[
+    <p>{patito}</p>,
     <AppUI 
       total={totalTodos}
       completed={completedTodos}
@@ -69,7 +84,7 @@ function App() {
       completeTodo={completeTodo}
       deleteTodo={deleteTodo}
     />
-  );
+  ];
 }
 
 export default App;
