@@ -25,7 +25,7 @@ function useLocalStorage(itemName, initialValue){
   
         }
   
-      }, 1000);
+      }, 3000);
     });
   
     //const [item, setItem] = React.useState(parsedItem);
