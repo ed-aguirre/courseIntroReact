@@ -1,11 +1,13 @@
 .TodoItem {
-  background-color: #FAFAFA;
+  border-radius: 50px;
+background: #F9FBFC;
+box-shadow: inset 8px 7px 11px #d4d5d6,
+            inset -20px -20px 16px #ffffff;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-top: 24px;
-  box-shadow: 0px 5px 50px rgba(32, 35, 41, 0.15);
 }
 
 .TodoItem-p {
