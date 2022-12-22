@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/courseIntroReact/static/css/main.3e374cb3.chunk.css",
+    "main.js": "/courseIntroReact/static/js/main.5b11b120.chunk.js",
+    "main.js.map": "/courseIntroReact/static/js/main.5b11b120.chunk.js.map",
+    "runtime-main.js": "/courseIntroReact/static/js/runtime-main.7568e780.js",
+    "runtime-main.js.map": "/courseIntroReact/static/js/runtime-main.7568e780.js.map",
+    "static/js/2.970d1c2f.chunk.js": "/courseIntroReact/static/js/2.970d1c2f.chunk.js",
+    "static/js/2.970d1c2f.chunk.js.map": "/courseIntroReact/static/js/2.970d1c2f.chunk.js.map",
+    "index.html": "/courseIntroReact/index.html",
+    "static/css/main.3e374cb3.chunk.css.map": "/courseIntroReact/static/css/main.3e374cb3.chunk.css.map",
+    "static/js/2.970d1c2f.chunk.js.LICENSE.txt": "/courseIntroReact/static/js/2.970d1c2f.chunk.js.LICENSE.txt",
+    "static/media/icons8-delete.9655ea53.svg": "/courseIntroReact/static/media/icons8-delete.9655ea53.svg",
+    "static/media/icons8-done.c4b98ad3.svg": "/courseIntroReact/static/media/icons8-done.c4b98ad3.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7568e780.js",
+    "static/js/2.970d1c2f.chunk.js",
+    "static/css/main.3e374cb3.chunk.css",
+    "static/js/main.5b11b120.chunk.js"
+  ]
+}
